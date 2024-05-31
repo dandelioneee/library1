@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.LendRecordMapper">
+    <select id="countByLendTime" resultType="java.lang.Integer">
+        select count(reader_id) from lend_record
+         <where>
+             <if test="begin != null">
+                    and lend_time &gt; #{begin}
+             </if>
+             <if test="end != null">
+                    and lend_time &lt; #{end}
+             </if>
+            and lend_time != null
+         </where>
+    </select>
+
+    <select id="countByReturnTime" resultType="java.lang.Integer">
+        select count(reader_id) from lend_record
+        <where>
+            <if test="begin != null">
+                and return_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and return_time &lt; #{end}
+            </if>
+            and return_time != null
+        </where>
+    </select>
+    <select id="countById" resultType="java.lang.Integer">
+        select count(reader_id) from lend_record
+        <where>
+            <if test="begin != null">
+                and lend_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and lend_time &lt; #{end}
+            </if>
+        </where>
+    </select>
+    <select id="getByTime" resultType="com.example.demo.entity.LendRecord">
+        select reader_id,isbn,bookname,lend_time,return_time from lend_record
+        <where>
+            <if test="begin != null">
+                and lend_time &gt; #{begin}
+            </if>
+            <if test="end != null">
+                and lend_time &lt; #{end}
+            </if>
+        </where>
+    </select>
+</mapper>
+
